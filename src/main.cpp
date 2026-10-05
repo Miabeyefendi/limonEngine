@@ -18,6 +18,10 @@
 #include <algorithm>
 #include <cstdlib>
 
+#ifndef LIMON_VERSION
+#define LIMON_VERSION "unknown"//the build defines it from the project version
+#endif
+
 const std::string PROGRAM_NAME = "LimonEngine";
 const std::string RELEASE_FILE = "./Data/Release.xml";
 const std::string ENGINE_OPTIONS_FILE = "./Engine/Options.xml";
@@ -166,6 +170,7 @@ void GameEngine::returnPreviousMap() {
 }
 
 GameEngine::GameEngine() {
+    std::cout << PROGRAM_NAME << " version " << LIMON_VERSION << std::endl;//so a pasted log says which build it came from
     scriptManager = new ScriptManager("./Engine/Scripts", "./Data/Scripts");
 
     options = new OptionsUtil::Options([](){return static_cast<uint32_t>(SDL3Helper::getTicks());});

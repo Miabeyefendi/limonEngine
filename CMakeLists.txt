@@ -140,6 +140,7 @@ file(GLOB_RECURSE SOURCE_FILES src/*.cpp)
 list(FILTER SOURCE_FILES EXCLUDE REGEX "ProfilerSystem\\.cpp$")
 
 add_executable(LimonEngine ${SOURCE_FILES})
+target_compile_definitions(LimonEngine PRIVATE LIMON_VERSION="${PROJECT_VERSION}")
 
 INCLUDE(FindPkgConfig)
 
