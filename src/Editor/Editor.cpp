@@ -858,6 +858,15 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
                     ImGuiHelper::ShowHelpMarker("Current Object: " + this->pickedObject->getName());
                 }
                 if(pickedAttachable->getParentObject() != nullptr) {
+                    GameObject* parentGameObject = dynamic_cast<GameObject*>(pickedAttachable->getParentObject());
+                    if(parentGameObject != nullptr) {
+                        if(ImGui::Button("Select parent")) {
+                            //changing pickedObject here would swap the panel we are in the middle of drawing
+                            pendingPickedObject = parentGameObject;
+                            hasPendingPick = true;
+                        }
+                        ImGui::SameLine();
+                    }
                     if(ImGui::Button("Detach from parent")) {
                         world->apiAccessor->detach(pickedAttachable);
                     }
