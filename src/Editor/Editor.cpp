@@ -833,6 +833,17 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
         if(this->pickedObject != nullptr) {
             Attachable* pickedAttachable = world->findAttachableByID(this->pickedObject->getWorldObjectID());
             if(pickedAttachable != nullptr) {
+                //only the free editor camera can be moved like this, a physical or scripted player owns its own position
+                if(world->currentPlayer != nullptr && world->currentPlayer == world->editorPlayer) {
+                    if(ImGui::Button("Go to this object")) {
+                        const float GO_TO_OBJECT_DISTANCE = 5.0f;
+                        const glm::vec3 objectPosition = glm::vec3(pickedAttachable->getTransformation()->getWorldTransform()[3]);
+                        const glm::vec3 lookDirection = glm::normalize(world->currentPlayer->getLookDirection());
+                        world->currentPlayer->ownControl(objectPosition - lookDirection * GO_TO_OBJECT_DISTANCE, lookDirection);
+                    }
+                    ImGui::SameLine();
+                    ImGuiHelper::ShowHelpMarker("Moves the camera so the object is in front of it, keeping the direction you look at");
+                }
                 if(ImGui::Button("Attach this object to another")) {
                     this->objectToAttach = pickedAttachable;
                 }
