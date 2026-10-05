@@ -18,6 +18,8 @@
 
 class TriggerObject : public GameObject, public Attachable {
     std::string name;
+    char nameBuffer[128] = {0};//what the name field edits, copied to name as it changes
+    bool nameFieldActive = false;
     Transformation transformation;
 
     uint32_t objectID;

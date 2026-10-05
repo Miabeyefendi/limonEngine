@@ -3,6 +3,7 @@
 //
 
 #include "TriggerObject.h"
+#include <cstring>
 #include "../Assets/Animations/AnimationCustom.h"
 #include "../../libs/ImGui/imgui.h"
 #include "../GameObjects/Model.h"
@@ -83,6 +84,18 @@ void TriggerObject::render(BulletDebugDrawer *debugDrawer) {
 
 ImGuiResult TriggerObject::addImGuiEditorElements(const ImGuiRequest &request) {
     static ImGuiResult result;
+
+    //triggers were all named TRIGGER-<id>, which says nothing in a world with many of them. The buffer is only
+    //refreshed while the field is not being edited, so typing is not overwritten
+    if (!nameFieldActive) {
+        strncpy(nameBuffer, name.c_str(), sizeof(nameBuffer) - 1);
+        nameBuffer[sizeof(nameBuffer) - 1] = '\0';
+    }
+    //an empty name can't be told apart in the object tree, so the last one that had text stays until a new one is typed
+    if (ImGui::InputText("Name##TriggerNameField", nameBuffer, sizeof(nameBuffer)) && nameBuffer[0] != '\0') {
+        name = nameBuffer;
+    }
+    nameFieldActive = ImGui::IsItemActive();
 
     result.updated = transformation.addImGuiEditorElements(request.perspectiveCameraMatrix, request.perspectiveMatrix, false, parentObject != nullptr);
     if (ImGui::CollapsingHeader("Trigger Properties")) {
