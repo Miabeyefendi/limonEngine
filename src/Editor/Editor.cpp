@@ -1356,6 +1356,18 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
         if(ImGui::Button("Change Render Pipeline")) {
             this->showNodeGraph = true;
         }
+        if (ImGui::CollapsingHeader("World statistics")) {
+            ImGui::Text("Models: %zu", world->objects.size());
+            ImGui::Text("Model groups: %zu", world->modelGroups.size());
+            ImGui::Text("Lights: %zu (%zu in use this frame)", world->lights.size(), world->activeLights.size());
+            ImGui::Text("Sounds: %zu", world->sounds.size());
+            ImGui::Text("Triggers: %zu", world->triggers.size());
+            ImGui::Text("GUI elements: %zu", world->guiElements.size());
+            if (world->currentPlayer != nullptr) {
+                const glm::vec3 cameraPosition = world->currentPlayer->getPosition();
+                ImGui::Text("Player position: %.2f, %.2f, %.2f", cameraPosition.x, cameraPosition.y, cameraPosition.z);
+            }
+        }
         if (ImGui::CollapsingHeader("Render Debugging")) {
             OptionsUtil::Options::Option<bool> occlusionCullingOption = world->options->getOption<bool>(world->options->getHash("occlusion_enabled"));
             bool occlusionCullingEnabled = occlusionCullingOption.getOrDefault(true);
