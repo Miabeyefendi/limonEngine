@@ -1487,6 +1487,12 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
         buildTreeFromAllGameObjects();
 
         if(this->pickedObject != nullptr) {
+            //scripts and trigger parameters refer to objects by this number
+            ImGui::Text("ID: %u", this->pickedObject->getWorldObjectID());
+            ImGui::SameLine();
+            if(ImGui::SmallButton("Copy ID")) {
+                ImGui::SetClipboardText(std::to_string(this->pickedObject->getWorldObjectID()).c_str());
+            }
             //search for the selected element in the rendered elements
             //only hand the copy down while the object that owns it is the one being drawn
             this->request->alteredMaterial = (alteredMaterialEdit.material != nullptr &&
