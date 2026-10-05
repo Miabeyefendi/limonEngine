@@ -1398,6 +1398,17 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
 
         }
 
+        if(ImGui::CollapsingHeader("Controls")) {
+            ImGui::TextUnformatted("Default keys, they can be changed in Engine/inputBindings.xml");
+            ImGui::BulletText("F2: switch between the game and the editor");
+            ImGui::BulletText("Left click: select the object under the cursor, empty space deselects");
+            ImGui::BulletText("Hold right mouse button and move the mouse: look around");
+            ImGui::BulletText("W A S D: move the camera, hold Shift to move faster");
+            ImGui::BulletText("0: debug mode, shows physics meshes and lets you fly through objects");
+            ImGui::BulletText("F4: show or hide the debug lines");
+            ImGui::BulletText("F5: pause or resume the profiler");
+            ImGui::BulletText("Keypad + and -: change the mouse sensitivity");
+        }
         if(ImGui::CollapsingHeader("List materials")) {
             //listing
             static bool syncWithObjectSelection = true;
