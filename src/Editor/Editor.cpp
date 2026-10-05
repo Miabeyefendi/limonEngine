@@ -1484,6 +1484,15 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
             selectedName = this->pickedObject->getName().c_str();
         }
 
+        if(this->pickedObject != nullptr && ImGui::Button("Deselect")) {
+            this->pickedObject->removeTag(HardCodedTags::PICKED_OBJECT);
+            if (alteredMaterialEdit.material != nullptr) {
+                releaseAlteredMaterialEdit();//selecting away closes the panel, as a pick does
+            }
+            this->pickedObject = nullptr;
+            this->pickedObjectID = 0xFFFFFFFF;//what the tree reads as nothing selected
+        }
+
         buildTreeFromAllGameObjects();
 
         if(this->pickedObject != nullptr) {
