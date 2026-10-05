@@ -2062,7 +2062,7 @@ void Editor::buildTreeFromAllGameObjects() {
         ImGui::SetNextItemOpen(true);
     }
     //objects
-    if (ImGui::TreeNode("Objects##ObjectsTreeRoot")) {
+    if (ImGui::TreeNode(("Objects (" + std::to_string(world->objects.size()) + ")###ObjectsTreeRoot").c_str())) {
         //ModelGroups
         for (auto iterator = world->modelGroups.begin(); iterator != world->modelGroups.end(); ++iterator) {
             if(isListedUnderParent(iterator->second)) {
@@ -2115,7 +2115,7 @@ void Editor::buildTreeFromAllGameObjects() {
         ImGui::SetNextItemOpen(false);
     }
     //GUI elements
-    if (ImGui::TreeNode("GUI Elements##guiElementsTreeRoot")) {
+    if (ImGui::TreeNode(("GUI Elements (" + std::to_string(world->guiElements.size()) + ")###guiElementsTreeRoot").c_str())) {
         for (auto iterator = world->guiLayers.begin(); iterator != world->guiLayers.end(); ++iterator) {
             std::vector<GameObject*> thisLayersElements = (*iterator)->getGuiElements();
             if (hasFilter) {
@@ -2160,7 +2160,7 @@ void Editor::buildTreeFromAllGameObjects() {
         ImGui::SetNextItemOpen(false);
     }
     //Lights
-    if (ImGui::TreeNode("Lights##LightsTreeRoot")) {
+    if (ImGui::TreeNode(("Lights (" + std::to_string(world->lights.size()) + ")###LightsTreeRoot").c_str())) {
         for (auto iterator = world->lights.begin(); iterator != world->lights.end(); ++iterator) {
             GameObject* currentObject = dynamic_cast<GameObject*>(*iterator);
             if(currentObject != nullptr) {
@@ -2188,7 +2188,7 @@ void Editor::buildTreeFromAllGameObjects() {
         ImGui::SetNextItemOpen(false);
     }
     //Sounds
-    if (ImGui::TreeNode("Sounds##SoundsTreeRoot")) {
+    if (ImGui::TreeNode(("Sounds (" + std::to_string(world->sounds.size()) + ")###SoundsTreeRoot").c_str())) {
         for(auto& kv : world->sounds) {
             Sound* currentSound = kv.second.get();
             if(currentSound->getParentObject() != nullptr) {
@@ -2218,7 +2218,7 @@ void Editor::buildTreeFromAllGameObjects() {
         ImGui::SetNextItemOpen(false);
     }
     //Triggers
-    if (ImGui::TreeNode("Trigger Volumes##TriggersTreeRoot")) {
+    if (ImGui::TreeNode(("Trigger Volumes (" + std::to_string(world->triggers.size()) + ")###TriggersTreeRoot").c_str())) {
         for (auto iterator = world->triggers.begin(); iterator != world->triggers.end(); ++iterator) {
             GameObject* currentObject = dynamic_cast<GameObject*>(iterator->second);
             if(currentObject != nullptr) {
