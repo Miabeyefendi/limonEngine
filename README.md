@@ -94,6 +94,23 @@ $ ./LimonEngine ./Data/Maps/World001.xml
 * Pressing `+` and `-` changes mouse sensitivity.
 * `wasd` for walking around and mouse for looking around as usual.
 
+### Settings and key bindings:
+
+* The default settings are in `./Engine/Options.xml`. If `./Data/Options.xml` exists, it is read after it, and an option with the same name replaces the default, so it only needs the options you want to change:
+```xml
+<Options>
+    <Parameter>
+        <RequestType>FreeNumber</RequestType>
+        <Description>display_width</Description>
+        <Value>1280</Value>
+        <valueType>Long</valueType>
+        <IsSet>True</IsSet>
+        <Index>0</Index>
+    </Parameter>
+</Options>
+```
+* Keys, mouse buttons and gamepad inputs are bound to actions in `./Engine/inputBindings.xml`. The file lists the names it accepts, and can be edited without recompiling. If it is missing, built-in defaults are used.
+
 ### In editor mode:
 
 * All assets automatically scanned and listed. Can be filtered further by using filters widget
