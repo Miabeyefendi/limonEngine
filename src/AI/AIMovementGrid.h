@@ -72,8 +72,8 @@ class AIMovementGrid {
     uint32_t nextPossibleIndex = 1;//this is to be used internal and constructor only. Not thread safe
 
     int isThereCollisionCounter = 0;//this is only meaningful for debug
-    float capsuleHeight = 1.30f + 0.1f;
-    float capsuleRadius = 0.35f;//FIXME these should be configurable
+    float capsuleHeight = DEFAULT_CAPSULE_HEIGHT;
+    float capsuleRadius = DEFAULT_CAPSULE_RADIUS;
     bool isThereCollision(btDiscreteDynamicsWorld *staticWorld);
 
     glm::vec3 max,min;
@@ -101,9 +101,13 @@ class AIMovementGrid {
 
 public:
     static constexpr float floatingHeight = 2.0f;
+    //the size of the body that is tested for fitting at each node, so the width and height of what the actors can walk through
+    static constexpr float DEFAULT_CAPSULE_HEIGHT = 1.30f + 0.1f;
+    static constexpr float DEFAULT_CAPSULE_RADIUS = 0.35f;
 
     AIMovementGrid(glm::vec3 startPoint, btDiscreteDynamicsWorld *staticOnlyPhysicsWorld, glm::vec3 min,
-                       glm::vec3 max, uint32_t collisionGroup, uint32_t collisionMask);
+                       glm::vec3 max, uint32_t collisionGroup, uint32_t collisionMask,
+                       float gridCapsuleHeight = DEFAULT_CAPSULE_HEIGHT, float gridCapsuleRadius = DEFAULT_CAPSULE_RADIUS);
 
     ~AIMovementGrid() {
         delete rayCallback;

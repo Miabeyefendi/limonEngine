@@ -684,4 +684,20 @@
         <IsSet>True</IsSet>
         <Index>53</Index>
     </Parameter>
+    <Parameter>
+        <RequestType>FreeNumber</RequestType>
+        <Description>ai_gridCapsuleHeight</Description>
+        <Value>1.4</Value>
+        <valueType>Double</valueType>
+        <IsSet>True</IsSet>
+        <Index>84</Index>
+    </Parameter>
+    <Parameter>
+        <RequestType>FreeNumber</RequestType>
+        <Description>ai_gridCapsuleRadius</Description>
+        <Value>0.35</Value>
+        <valueType>Double</valueType>
+        <IsSet>True</IsSet>
+        <Index>85</Index>
+    </Parameter>
 </Options>

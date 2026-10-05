@@ -273,7 +273,10 @@ bool AIMovementGrid::isThereCollision(btDiscreteDynamicsWorld *staticWorld) {
 }
 
 AIMovementGrid::AIMovementGrid(glm::vec3 startPoint, btDiscreteDynamicsWorld *staticOnlyPhysicsWorld, glm::vec3 min,
-                               glm::vec3 max, uint32_t collisionGroup, uint32_t collisionMask) {
+                               glm::vec3 max, uint32_t collisionGroup, uint32_t collisionMask,
+                               float gridCapsuleHeight, float gridCapsuleRadius) {
+    capsuleHeight = gridCapsuleHeight;
+    capsuleRadius = gridCapsuleRadius;
     //sharedGhostObject->setCollisionShape(new btBoxShape(btVector3(1.0f,1.0f,1.0f)));
     //sharedGhostObject->setCollisionShape(new btCapsuleShape(1,1));
     ghostShape = new btCapsuleShape(capsuleRadius, capsuleHeight);

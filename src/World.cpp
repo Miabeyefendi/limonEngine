@@ -1303,8 +1303,16 @@ void World::createGridFrom(const glm::vec3 &aiGridStartPoint) {
         std::string AIWalkName = this->name.substr(0, this->name.find_last_of(".")) + ".aiwalk";
         grid = AIMovementGrid::deserialize(AIWalkName);
         if (grid == nullptr) {
+            //a saved walk grid keeps the size it was built with, these only apply when one is generated
+            float gridCapsuleHeight = (float) options->getOption<double>(HASH("ai_gridCapsuleHeight")).getOrDefault(AIMovementGrid::DEFAULT_CAPSULE_HEIGHT);
+            float gridCapsuleRadius = (float) options->getOption<double>(HASH("ai_gridCapsuleRadius")).getOrDefault(AIMovementGrid::DEFAULT_CAPSULE_RADIUS);
+            if (!(gridCapsuleHeight > 0.0f) || !(gridCapsuleRadius > 0.0f)) {
+                std::cerr << "ai_gridCapsuleHeight and ai_gridCapsuleRadius must be greater than 0, using the defaults." << std::endl;
+                gridCapsuleHeight = AIMovementGrid::DEFAULT_CAPSULE_HEIGHT;
+                gridCapsuleRadius = AIMovementGrid::DEFAULT_CAPSULE_RADIUS;
+            }
             grid = new AIMovementGrid(aiGridStartPoint, dynamicsWorld, worldAABBMin, worldAABBMax, COLLIDE_PLAYER,
-                                      COLLIDE_STATIC_MODELS | COLLIDE_EVERYTHING);
+                                      COLLIDE_STATIC_MODELS | COLLIDE_EVERYTHING, gridCapsuleHeight, gridCapsuleRadius);
         }
     }
 }
