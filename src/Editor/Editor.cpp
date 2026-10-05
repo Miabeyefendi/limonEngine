@@ -1124,6 +1124,17 @@ void Editor::renderEditor(std::shared_ptr<GraphicsProgram> graphicsProgram) {
                 ImGui::Text("The name didn't match an extension. The info won't be saved!");
                 ImGui::PopStyleColor();
             }
+            //the start position is what a new game and the editor camera begin at, flying there to place it by number is slow
+            if(world->currentPlayer != nullptr && world->currentPlayer == world->editorPlayer) {
+                if(ImGui::Button("Use camera as start position")) {
+                    world->startingPlayer.position = world->currentPlayer->getPosition();
+                    world->startingPlayer.orientation = glm::normalize(world->currentPlayer->getLookDirection());
+                }
+                ImGui::SameLine();
+                if(ImGui::Button("Move camera to start position")) {
+                    world->currentPlayer->ownControl(world->startingPlayer.position, world->startingPlayer.orientation);
+                }
+            }
         }
         ImGui::Separator();
         if(ImGui::CollapsingHeader("Add Camera Rig")) {
