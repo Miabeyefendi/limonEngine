@@ -28,4 +28,11 @@ If you want to contribute, you can by doing (from easier to harder):
   * Use meaningful variable names, even if they are long. don't use "var" instead of variable.
   * Avoid multiple inheritence. If you have to, only one of the parents can have variables.
   
+## Preparing a pull request
+
+  * Keep a pull request to one change, so it can be reviewed and merged on its own.
+  * Say which issue it fixes, for example "Fixes #123", or what problem it solves if there is no issue.
+  * Describe what was run or tried to check it, and what was seen. If a part could not be run, say which.
+  * Commit messages should say what the problem was and what the change does.
+
 Thanks, and happy hacking!
