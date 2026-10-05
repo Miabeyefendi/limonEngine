@@ -120,6 +120,10 @@ Transformation::addImGuiEditorElements(const glm::mat4 &cameraMatrix, const glm:
             ImGui::Checkbox("##SnapCheckBoxForAngle", &(editorState.useSnap));
             ImGui::SameLine();
             ImGui::InputFloat("Angle Snap", &(editorState.snap[0]));
+            if(!is2D && ImGui::Button("Reset rotation")) {
+                setOrientation(glm::quat(1.0f, 0.0f, 0.0f, 0.0f));
+                updated = true;
+            }
             break;
         }
         case SCALE_MODE: {
@@ -147,6 +151,10 @@ Transformation::addImGuiEditorElements(const glm::mat4 &cameraMatrix, const glm:
             ImGui::Checkbox("##SnapCheckBoxScaleSnap", &(editorState.useSnap));
             ImGui::SameLine();
             ImGui::InputFloat("Scale Snap", &(editorState.snap[0]));
+            if(ImGui::Button("Reset scale")) {
+                setScale(glm::vec3(1.0f, 1.0f, 1.0f));
+                updated = true;
+            }
             break;
         }
     }
